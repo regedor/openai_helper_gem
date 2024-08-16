@@ -1,0 +1,6 @@
+/.bundle/
+/log/
+/tmp/
+/*.gem
+*.swp
+.DS_Store
