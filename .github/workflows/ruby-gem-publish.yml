@@ -1,0 +1,28 @@
+name: Ruby Gem Publish
+
+on:
+  push:
+    tags:
+      - "v*"  # Triggers the workflow on version tag push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"  # Use your preferred Ruby version
+
+      - name: Build the gem
+        run: gem build openai_helper_gem.gemspec
+
+      - name: Publish to RubyGems
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: gem push openai_helper_gem-*.gem
+
